@@ -103,7 +103,7 @@ def get_solution_paths_dict_for_years() -> dict[int, dict[int, list[str]]]:
 
             solutions = [solution.relative_to(AOC_DIR) for solution in solutions]
 
-            solution_paths_dict[year][day] = [str(s) for s in solutions]
+            solution_paths_dict[year][day] = [s.as_posix() for s in solutions]
     return solution_paths_dict
 
 
@@ -386,7 +386,7 @@ def handle_day(day: int, year: int, solutions: list[str], html: HTML, day_scores
         generate_day_tile_image(f"{day:02}", f"{year:04}", languages, day_scores, day_graphic_path)
     day_graphic_path = day_graphic_path.relative_to(AOC_DIR)
     with html.tag("a", href=str(solution_link)):
-        html.tag("img", closing=False, src=str(day_graphic_path), width=TILE_WIDTH_PX)
+        html.tag("img", closing=False, src=day_graphic_path.as_posix(), width=TILE_WIDTH_PX)
 
 
 def find_first_number(string: str) -> int:
@@ -427,7 +427,7 @@ def handle_year(year: int, day_to_solutions: dict[int, list[str]]):
         completed_days = [day for day, scores in leaderboard.items() if scores.time2 is not None]
         file.write(json.dumps({day: solutions for day, solutions in day_to_solutions.items() if day in completed_days}))
 
-    with open(README_PATH, "r") as file:
+    with open(README_PATH, "r", encoding="utf-8") as file:
         text = file.read()
         begin = "<!-- AOC TILES BEGIN -->"
         end = "<!-- AOC TILES END -->"
