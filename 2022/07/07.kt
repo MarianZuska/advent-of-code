@@ -1,41 +1,58 @@
+data class Node(var name: String, var value: Int, val prev: Node?, val next: MutableList<Node>)
 
-data class node(var name: String, var value: Int, val prev: node?, val next: MutableList<node>)
-
-fun addChildSizes(dir: node): Int {
-    var size = dir.value
-    size += dir.next.sumOf { addChildSizes(it) }
+fun addChildSizes(dir: Node): Int {
+    var size = dir.value + dir.next.sumOf { addChildSizes(it) }
     dir.value = size
     return size
 }
 
+
 fun main() {
-    val root = node("/", 0, null, mutableListOf())
+    val root = Node("/", 0, null, mutableListOf())
     var current = root
-    val nodes: MutableList<node> = mutableListOf(root)
+    val nodes: MutableList<Node> = mutableListOf(root)
+
+    fun processCommand(cmd: String) {
+        val (cmd, arg) = cmd.split(" ")
+        when (cmd) {
+            "cd" -> current = when (arg) {
+                ".." -> current.prev!!
+                "/" -> root
+                else -> current.next.find { sub -> sub.name == arg }!!
+            }
+
+            "dir" -> {
+                val subDir = Node(arg, 0, current, mutableListOf())
+                nodes.add(subDir)
+                current.next.add(subDir)
+            }
+
+            else -> current.value += cmd.toInt()
+        }
+    }
 
     generateSequence(::readlnOrNull)
-        .map {it.split(" ")}
-        .forEach {
-            when {
-                it == listOf("$", "cd", "..") -> current = current.prev!!
-                it == listOf("$", "cd", "/") -> current = root
-                it[1] == "cd" -> current = current.next.find { sub -> sub.name == it[2] }!!
-                it[0].toIntOrNull() != null -> current.value += it[0].toInt()
-                it[0] == "dir" -> {
-                    val subDir = node(it[1], 0, current, mutableListOf())
-                    nodes.add(subDir)
-                    current.next.add(subDir)
-                }
-            }
-        }
+        .map { it.replace("$ ", "") }
+        .filter { it != "ls" }
+        .forEach(::processCommand)
 
     addChildSizes(root)
-    
-    val out1 = nodes.map{it.value}.filter { it < 100000 }.sum()
-    println(out1)
+
+    val sizes = nodes
+        .map { it.value }
+
+    val out1 = sizes
+        .filter { it <= 100000 }
+        .sum()
 
     val needed = 30000000 - (70000000 - root.value)
-    val out2 = nodes.map{it.value}.sorted().first { it > needed }
+    val out2 = sizes
+        .filter { it >= needed }
+        .min()
+
+    println(out1)
     println(out2)
 
+    assert(out1 == 1367870) { "First answer is wrong." }
+    assert(out2 == 549173) { "Second answer is wrong." }
 }

@@ -1,17 +1,22 @@
 fun main() {
-    val list = generateSequence(::readlnOrNull).toList()
+    val lines = generateSequence(::readlnOrNull).toList()
 
-    val groups = list.scan(0) { x, s -> if (s == "") x + 1 else x }
+    val groups = lines.scan(0) { elf, line -> if (line == "") elf + 1 else elf }
 
-    val sortedElves = list
+    val sortedElves = lines
         .asSequence()
         .map { it.toIntOrNull() }
         .withIndex()
-        .filter { it != null }
         .groupBy { groups[it.index] }
-        .map { it.value.sumOf { it.value ?: 0 }}
+        .map { elf -> elf.value.sumOf { it.value ?: 0 } }
         .sortedDescending()
 
-    println(sortedElves.take(1).first())
-    println(sortedElves.take(3).sum())
+    val out1 = sortedElves.first()
+    println(out1)
+
+    val out2 = sortedElves.take(3).sum()
+    println(out2)
+
+    assert(out1 == 69883) { "First answer is wrong." }
+    assert(out2 == 207576) { "Second answer is wrong." }
 }
