@@ -7,13 +7,8 @@ class Monkey(description: List<String>) {
     companion object {
         var modulator: Long = 1
 
-        private fun gcd(a: Long, b: Long): Long {
-            return if (b == 0L) a else gcd(b, a % b)
-        }
-
-        fun lcm(a: Long, b: Long): Long {
-            return a * (b / gcd(a, b))
-        }
+        private fun gcd(a: Long, b: Long): Long = if (b == 0L) a else gcd(b, a % b)
+        fun lcm(a: Long, b: Long): Long = a * (b / gcd(a, b))
     }
 
     init {
