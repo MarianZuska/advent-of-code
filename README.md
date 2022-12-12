@@ -4,7 +4,7 @@ My Advent of Code solutions for the year 2022.
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
-  2022 - 22 ⭐
+  2022 - 24 ⭐
 </h1>
 <a href="2022/01/01.kt">
   <img src="Media/2022/01.png" width="161px">
@@ -39,7 +39,7 @@ My Advent of Code solutions for the year 2022.
 <a href="2022/11/11.kt">
   <img src="Media/2022/11.png" width="161px">
 </a>
-<a href="None">
+<a href="2022/12/12.kt">
   <img src="Media/2022/12.png" width="161px">
 </a>
 <a href="None">
