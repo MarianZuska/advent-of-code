@@ -1,6 +1,8 @@
 import java.util.LinkedList
 import java.util.Queue
 
+const val INF = 1000000
+
 fun bfs(start: Pair<Int, Int>, end: Pair<Int, Int>, heightMap: List<List<Int>>): Int {
     val q: Queue<Pair<Pair<Int, Int>, Int>> = LinkedList()
     q.add(Pair(start, 0))
@@ -27,7 +29,7 @@ fun bfs(start: Pair<Int, Int>, end: Pair<Int, Int>, heightMap: List<List<Int>>):
             }
         }
     }
-    return 1000000
+    return INF
 }
 
 fun getIndicesOfFirst(char: Char, input: List<String>): Pair<Int, Int> {
@@ -58,7 +60,7 @@ fun main() {
 
     val heightMap = terrain.map { line -> line.map { square -> square - 'a' } }.toList()
 
-    var out2 = 1000000
+    var out2 = INF
     var out1 = 0
     for (curStart in possibleStarts) {
         val steps = bfs(curStart, endPair, heightMap)
