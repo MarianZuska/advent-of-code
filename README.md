@@ -30,7 +30,7 @@ My Advent of Code solutions for the year 2022.
 <a href="2022/08/08.py">
   <img src="Media/2022/08.png" width="161px">
 </a>
-<a href="2022/09/09.kt">
+<a href="2022/09/09.py">
   <img src="Media/2022/09.png" width="161px">
 </a>
 <a href="2022/10/10.kt">
