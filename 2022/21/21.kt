@@ -41,7 +41,7 @@ fun main() {
 
     println(out1)
     println(out2)
-
+    println(solve("root", true, 3592056845086L))
     assert(out1 == 194058098264286L) { "First answer $out1 is wrong." }
     assert(out2 == 3592056845087L) { "Second answer $out2 is wrong." }
 }
