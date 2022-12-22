@@ -1,6 +1,6 @@
 import kotlin.math.abs
 
-operator fun Pair<Int, Int>.plus(o: Pair<Int, Int>) = Pair(this.first + o.first, this.second + o.second)
+private operator fun Pair<Int, Int>.plus(o: Pair<Int, Int>) = Pair(this.first + o.first, this.second + o.second)
 
 fun main() {
     val dirs = mutableMapOf("U" to Pair(0, 1), "L" to Pair(-1, 0), "D" to Pair(0, -1), "R" to Pair(1, 0))
